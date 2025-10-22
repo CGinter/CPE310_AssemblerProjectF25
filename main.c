@@ -16,5 +16,15 @@ int main(int argc, char *argv[])
 	else
 		printf("%b\n", machine_code);
 
+	struct assm_parse_result assembly = convert_to_assembly(machine_code, &error);
+
+	if (error != NULL)
+		puts(error);
+	else
+		printf("Name:\t%s\nTypes:\t%d\t%d\t%d\t%d\nVals:\t%d\t%d\t%d\t%d\n",
+				assembly.op_name, assembly.types[0], assembly.types[1],
+				assembly.types[2], assembly.types[3], assembly.vals[0],
+				assembly.vals[1], assembly.vals[2], assembly.vals[3]);
+
 	return EXIT_SUCCESS;
 }

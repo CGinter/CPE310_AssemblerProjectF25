@@ -11,6 +11,7 @@
 
 #include "assm_to_mach.h"
 #include "consts.h"
+#include "mach_to_assm.h"
 #include "util.h"
 
 #endif
