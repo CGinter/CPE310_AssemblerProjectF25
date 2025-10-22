@@ -59,7 +59,8 @@ static size_t find_instruction_by_name(char *given_name, char **error)
 	bool found = false;
 
 	// Find index of instruction
-	for (ins = 0; ins < sizeof(instruction_definitions) / sizeof(struct instruction_definition); ins++) {
+	for (ins = 0; ins < sizeof(instruction_definitions)
+			/ sizeof(struct instruction_definition); ins++) {
 		if (strcmp(given_name, instruction_definitions[ins].op_name) == 0) {
 			found = true;
 			break;
@@ -85,7 +86,7 @@ static void check_instruction_part(enum instruction_part part,
 			*error = "Missing register.";
 			return;
 		}
-		if (given_val > 31) { // 6-bit max
+		if (given_val > MAX_5_BIT) {
 			*error = "Invalid register.";
 			return;
 		}
@@ -95,7 +96,7 @@ static void check_instruction_part(enum instruction_part part,
 			*error = "Missing immediate.";
 			return;
 		}
-		if (given_val > 65535) { // 16-bit max
+		if (given_val > MAX_16_BIT) {
 			*error = "Invalid immediate.";
 			return;
 		}
@@ -105,7 +106,7 @@ static void check_instruction_part(enum instruction_part part,
 			*error = "Missing target.";
 			return;
 		}
-		if (given_val > 67108863) { // 26-bit max
+		if (given_val > MAX_26_BIT) {
 			*error = "Invalid target.";
 			return;
 		}
