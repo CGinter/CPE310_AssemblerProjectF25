@@ -1,3 +1,9 @@
+/**
+ * @file main.c
+ * @brief
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #include "include.h"
 
 int main(int argc, char *argv[])

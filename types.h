@@ -1,3 +1,9 @@
+/**
+ * @file types.h
+ * @brief
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 enum assm_parse_result_type {
 	REGISTER,
 	IMMEDIATE,
