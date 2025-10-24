@@ -16,4 +16,4 @@ extern const uint32_t MAX_26_BIT;
 
 // The definitions of the op codes, funct codes, instruction types, and the expected arguments
 // for an instruction.
-extern const struct instruction_definition instruction_definitions[2];
+extern const struct instruction_definition instruction_definitions[53];
