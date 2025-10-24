@@ -117,5 +117,10 @@ static void check_instruction_part(enum instruction_part part,
 			return;
 		}
 		break;
+	case EMPTY:
+		if (given_type != NONE) {
+			*error = "Too many arguments.";
+			return;
+		}
 	}
 }

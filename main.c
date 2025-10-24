@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	struct assm_parse_result test = {
 		"ADD",
-		{ REGISTER, REGISTER, REGISTER, EMPTY },
+		{ REGISTER, REGISTER, REGISTER, NONE },
 		{ 8, 9, 10, 0 }
 	};
 	char *error = NULL;
