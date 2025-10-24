@@ -10,41 +10,6 @@
 #include <stdio.h>
 
 /**
- * @brief Array of strings to represent available registers
- */
-extern const char* registers[] = {
-    "$zero",
-    "$v0",
-    "$v1",
-    "$a0",
-    "$a1",
-    "$a2",
-    "$a3",
-    "$t0",
-    "$t1",
-    "$t2",
-    "$t3",
-    "$t4",
-    "$t5",
-    "$t6",
-    "$t7",
-    "$s1",
-    "$s2",
-    "$s3",
-    "$s4",
-    "$s5",
-    "$s6",
-    "$s7",
-    "$t8",
-    "$t9",
-    "$t8",
-    "$gp",
-    "$sp",
-    "$fp",
-    "$ra"
-};
-
-/**
  * @brief Uses sys_free_mem() to free all memory associated with the pcb
  * @param line String of assembly instruction to translate
  * @param error Pointer to string that will contain error message 

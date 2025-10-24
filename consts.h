@@ -17,3 +17,8 @@ extern const uint32_t MAX_26_BIT;
 // The definitions of the op codes, funct codes, instruction types, and the expected arguments
 // for an instruction.
 extern const struct instruction_definition instruction_definitions[53];
+
+/**
+ * @brief Array of strings to represent available registers
+ */
+extern const char* registers[]; 
