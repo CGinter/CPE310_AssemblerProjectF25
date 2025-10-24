@@ -1,10 +1,16 @@
+/**
+ * @file main.c
+ * @brief
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #include "include.h"
 
 int main(int argc, char *argv[])
 {
 	struct assm_parse_result test = {
 		"ADD",
-		{ REGISTER, REGISTER, REGISTER, EMPTY },
+		{ REGISTER, REGISTER, REGISTER, NONE },
 		{ 8, 9, 10, 0 }
 	};
 	char *error = NULL;

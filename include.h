@@ -1,3 +1,9 @@
+/**
+ * @file include.h
+ * @brief 
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
@@ -13,5 +19,6 @@
 #include "consts.h"
 #include "mach_to_assm.h"
 #include "util.h"
+#include "parser.h"
 
 #endif
