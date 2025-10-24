@@ -21,4 +21,4 @@ extern const struct instruction_definition instruction_definitions[53];
 /**
  * @brief Array of strings to represent available registers
  */
-extern const char* registers[]; 
+extern const char* registers[29]; 

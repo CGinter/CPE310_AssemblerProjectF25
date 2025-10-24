@@ -18,6 +18,18 @@
 //Pointer to string, when i need to twll caden there is an error set it something other than null
 //make sure private functions are static 
 
+/**
+ * @brief Takes the string and turns each character to uppercase
+ * @param operand String to convert to uppercase
+ */
+static void uppercase(char *operand);
+
+/**
+ * @brief Takes the string compares it with each register type to find a match
+ * @param operand String to lookup
+ */
+static uint32_t reg_lookup(char *str);
+
 uint32_t parse_assembly(char *line, char **error)
 {
     struct assm_parse_result result;
@@ -61,7 +73,7 @@ uint32_t parse_assembly(char *line, char **error)
     }
 }
 
-void uppercase(char *operand)
+static void uppercase(char *operand)
 {
     size_t length = strlen(operand);
     for(size_t i = 0; i < length; i++)
@@ -70,9 +82,9 @@ void uppercase(char *operand)
     }
 }
 
-u_int32_t reg_lookup(char *str)
+static uint32_t reg_lookup(char *str)
 {
-    for (u_int32_t i = 0; i < sizeof(registers) / sizeof(registers[0]); i++)
+    for (uint32_t i = 0; i < sizeof(registers) / sizeof(registers[0]); i++)
     {
         if(strcmp(registers[i],str) == 0)
         {

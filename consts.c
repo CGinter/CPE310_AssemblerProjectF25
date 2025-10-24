@@ -15,7 +15,7 @@ const uint32_t MAX_16_BIT = 65535;
 const uint32_t MAX_26_BIT = 67108863;
 
 //Rachel Ogbonna Start
-extern const char* registers[] = {
+const char* registers[] = {
     "$zero",
     "$v0",
     "$v1",
