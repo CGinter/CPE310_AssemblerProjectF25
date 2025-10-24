@@ -32,5 +32,13 @@ int main(int argc, char *argv[])
 				assembly.types[2], assembly.types[3], assembly.vals[0],
 				assembly.vals[1], assembly.vals[2], assembly.vals[3]);
 
+	char buf[1024];
+	generate_assembly(buf, 1024, assembly, &error);
+
+	if (error != NULL)
+		puts(error);
+	else
+		puts(buf);
+
 	return EXIT_SUCCESS;
 }
