@@ -11,6 +11,7 @@ enum assm_parse_result_type {
 	NONE
 };
 
+//Important
 struct assm_parse_result {
 	char *op_name;
 	enum assm_parse_result_type types[4];
