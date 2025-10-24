@@ -1,6 +1,6 @@
 /**
  * @file util.h
- * @brief
+ * @brief Utility functions.
  * @author Chase Sprigle
  * @date 10/23/2025
  */

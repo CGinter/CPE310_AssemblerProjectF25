@@ -1,6 +1,6 @@
 /**
  * @file mach_to_assm.h
- * @brief
+ * @brief File containing the logic to convert a machine instruction to assembly.
  * @author Chase Sprigle
  * @date 10/23/2025
  */

@@ -1,5 +1,6 @@
 /**
  * @file consts.c
+ * @brief Constants used throughout codebase.
  * @authors Chase Sprigle and Victoria Marston
  * @date 10/23/25
  */

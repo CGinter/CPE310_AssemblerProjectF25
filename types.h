@@ -1,6 +1,6 @@
 /**
  * @file types.h
- * @brief
+ * @brief Struct and enum declarations.
  * @author Chase Sprigle
  * @date 10/23/2025
  */

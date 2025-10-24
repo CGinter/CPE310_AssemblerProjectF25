@@ -1,6 +1,6 @@
 /**
  * @file mach_to_assm.c
- * @brief File containing the logic to convert a machine instruction to an assembly
+ * @brief File containing the logic to convert a machine instruction to assembly.
  * instruction.
  * @author Chase Sprigle
  * @date 10/23/2025

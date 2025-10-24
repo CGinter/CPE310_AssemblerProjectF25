@@ -1,6 +1,6 @@
 /**
  * @file mach_to_assm.c
- * @brief
+ * @brief Constants used throughout codebase.
  * @author Chase Sprigle
  * @date 10/23/2025
  */
