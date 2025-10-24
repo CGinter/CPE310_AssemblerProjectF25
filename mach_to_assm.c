@@ -1,11 +1,23 @@
 /**
  * @file mach_to_assm.c
- * @brief
+ * @brief File containing the logic to convert a machine instruction to an assembly
+ * instruction.
  * @author Chase Sprigle
  * @date 10/23/2025
  */
+
 #include "include.h"
 
+/**
+ * @brief Finds the index in instructon_definitions of the instruction corresponding to the
+ * funct_code if it is R_TYPE or the op_code otherwise.
+ * @param op_code The provided op_code as an integer.
+ * @param funct_code The provided funct_code as an integer (nonsense if op_code isn't for
+ * R_TYPE instruction).
+ * @param error Pointer to string to hold error message if an error occurs.
+ * @return The index of the instruction in instruction_definitions if error is not set.
+ * Undefined if error is set.
+ */
 static size_t find_instruction_by_code(uint32_t op_code, uint32_t funct_code, char **error);
 
 struct assm_parse_result convert_to_assembly(uint32_t inst, char **error)

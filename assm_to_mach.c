@@ -4,9 +4,28 @@
  * @author Chase Sprigle
  * @date 10/23/2025
  */
+
 #include "include.h"
 
+/**
+ * @brief Find the index of the instruction of the given name.
+ * @param given_name The name of the op entered by the user.
+ * @param error Pointer to string to hold error message if an error occurs.
+ * @return Index to instruction_definitions corresponding to the given name when error isn't
+ * set. Undefined when error is set.
+ */
 static size_t find_instruction_by_name(char *given_name, char **error);
+
+/**
+ * @brief Verify that the type of a given argument matches the type of the part of the
+ * instruction it is supposed to be, and that its value does not exceed the limits for its
+ * type.
+ * @param part The part of the instruction the value is supposed to go to.
+ * @param given_type The type of the argument.
+ * @param given_val The value of the argument.
+ * @param error Pointer to string to hold error message if the given argument is of the wrong
+ * type or exceeds its limits.
+ */
 static void check_instruction_part(enum instruction_part part,
 		enum assm_parse_result_type given_type, uint32_t given_val, char **error);
 
