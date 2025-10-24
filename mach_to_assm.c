@@ -1,3 +1,9 @@
+/**
+ * @file mach_to_assm.c
+ * @brief
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #include "include.h"
 
 static size_t find_instruction_by_code(uint32_t op_code, uint32_t funct_code, char **error);

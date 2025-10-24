@@ -1,3 +1,9 @@
+/**
+ * @file assm_to_mach.c
+ * @brief 
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #include "include.h"
 
 static size_t find_instruction_by_name(char *given_name, char **error);

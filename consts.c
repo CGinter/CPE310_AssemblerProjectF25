@@ -1,3 +1,9 @@
+/**
+ * @file consts.c
+ * @brief
+ * @author Chase Sprigle
+ * @date 10/23/2025
+ */
 #include "include.h"
 
 const uint32_t UNDEFINED;
