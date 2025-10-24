@@ -7,8 +7,10 @@
 
 /**
  * @brief Function to generate assembly as text from a parse result.
+ * @param str A buffer that will contain the generated assembly instruction if error isn't
+ * set. Contents undefined if error is set.
+ * @param size The size of the buffer.
  * @param parsed The assembly parse result.
  * @param error Pointer to string to hold error message if an error occurs.
- * @return A line of assembly as text if error is not set. Undefined otherwise.
  */
-char *generate_assembly(struct assm_parse_result parsed, char **error);
+void generate_assembly(char *buf, size_t size, struct assm_parse_result parsed, char **error);
