@@ -16,6 +16,7 @@ enum assm_parse_result_type {
 // A structure for holding an assembly instruction. Note: op_name is expected to be in all
 // caps. The type is expected to be NONE when there are not enough arguments to fill the
 // array. The number in vals is undefined when the corresponding type is NONE.
+//Important
 struct assm_parse_result {
 	char *op_name;
 	enum assm_parse_result_type types[4];

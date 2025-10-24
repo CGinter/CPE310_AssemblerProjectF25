@@ -1,7 +1,7 @@
 /**
  * @file consts.c
  * @brief Constants used throughout codebase.
- * @authors Chase Sprigle and Victoria Marston
+ * @authors Chase Sprigle, Rachel Ogbonna, and Victoria Marston
  * @date 10/23/25
  */
 #include "include.h"
@@ -13,6 +13,40 @@ const uint32_t MAX_5_BIT = 31;
 const uint32_t MAX_6_BIT = 63;
 const uint32_t MAX_16_BIT = 65535;
 const uint32_t MAX_26_BIT = 67108863;
+
+//Rachel Ogbonna Start
+extern const char* registers[] = {
+    "$zero",
+    "$v0",
+    "$v1",
+    "$a0",
+    "$a1",
+    "$a2",
+    "$a3",
+    "$t0",
+    "$t1",
+    "$t2",
+    "$t3",
+    "$t4",
+    "$t5",
+    "$t6",
+    "$t7",
+    "$s1",
+    "$s2",
+    "$s3",
+    "$s4",
+    "$s5",
+    "$s6",
+    "$s7",
+    "$t8",
+    "$t9",
+    "$t8",
+    "$gp",
+    "$sp",
+    "$fp",
+    "$ra"
+};
+//Rachel Ogbonna End
 
 const struct instruction_definition instruction_definitions[] = {
 	{
