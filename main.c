@@ -24,9 +24,15 @@ int main(int argc, char *argv[])
 		printf("ByteForge Systems ©2012\n");
 		int_state = ROOT;
 	}
+	
+	// Create empty file pointer for reading in
+	FILE* in_file = NULL;
 
-	char line[LINE_BUFF_SIZE];
-	get_next_input(line, &int_state, flags, in_filename);
+	while (1) {
+		char line[LINE_BUFF_SIZE];
+		get_next_input(line, &int_state, flags, in_filename, &in_file);
+		printf("%s\n", line);
+	}
 	// if (result & ARG_AUTO)
 	// 	printf("Auto mode\n");
 	// else

@@ -42,5 +42,5 @@ uint32_t command_line_args(int argc, char *argv[], char** in_filename, char** ou
  * @param out_filename Output filename from command line arguments
  * @return char* The pointer to the next line in the input
  */
-void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags, char* in_filename);
+void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags, char* in_filename, FILE** file);
 // Caden Ginter end

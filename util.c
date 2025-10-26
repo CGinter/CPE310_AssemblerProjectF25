@@ -45,18 +45,38 @@ uint32_t command_line_args(int argc, char *argv[], char** in_filename, char** ou
 	return result;
 }
 
-void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags, char* in_filename)
+void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags, char* in_filename, FILE** file)
 {
 	// Pluck out flags
 	uint32_t auto_mode = flags & ARG_AUTO > 0;
 	uint32_t reverse_mode = flags & ARG_REVERSE > 0;
+	
+	// Empty box for file read status
+	char* str;
 
 	// Input from filename
 	if (auto_mode && in_filename != NULL) {
+		// Open the file if it isn't already
+		if (*file == NULL)
+			*file = fopen(in_filename, "r");
+		// Read line from file, checking for and cleaning up newlines
+		str = fgets(line, LINE_BUFF_SIZE, *file);
+		if (strchr(line, '\n') == NULL || str == NULL) {
+			printf("Invalid line");
+			exit(1);
+		}
+		line[strcspn(line, "\n")] = 0;
+
 		return;
 	}
 	// Input from stdin
 	else if (auto_mode && in_filename == NULL) {
+		// Read line from stdin, checking for and cleaning up newlines
+		if (strchr(line, '\n') == NULL || str == NULL) {
+			printf("Invalid line");
+			exit(1);
+		}
+		line[strcspn(line, "\n")] = 0;
 		return;
 	}
 	// Interactive mode
@@ -64,7 +84,6 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 		// Keep navigating menu until user enters a line
 		while (1) {
 			char choice[10];
-			char* str;
 			switch (*int_state) {
 				// Root menu
 				case ROOT:
