@@ -2,21 +2,13 @@
  * @file parser.c
  * @brief
  * @author Rachel Ogbonna
- * @date 10/23/2025
+ * @date 10/26/2025
  */
 
 #include "include.h"
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-//#include <stdlib.h>
-
-//parsing text like add $t0, $t1, $t0; assembly to machine
-//get string, pack into struct in types.h, then call convert_to_machine_code func (pass error straight into it)
-//set char**error to null immediately, when i get an error return to cadens function 
-//dont do error messages
-//Pointer to string, when i need to twll caden there is an error set it something other than null
-//make sure private functions are static 
 
 /**
  * @brief Takes the string and turns each character to uppercase
@@ -34,27 +26,43 @@ uint32_t parse_assembly(char *line, char **error)
 {
     struct assm_parse_result result;
     *error = NULL;
+    size_t length;
+    char* opp_name;
+
+    //Returns length of the part of string that does not contain " "
+    length = strcspn(line, " ");
+
+    //Allocate mem for opp name 
+    opp_name = (char*)malloc(sizeof(char) * (length + 1));
 
     //look for operand, and store into struct capitalized
-    char *operand = strstr(line, " ");
-    if (operand == NULL)
+    if (opp_name == NULL)
     {
         *error = "Operand not found";
         return UNDEFINED;
     }
+
+    //Copies opp name from line
+    strncpy(opp_name, line, length);
+
+    //Adds null terminator 
+    opp_name[length] = '\0';
             
-    uppercase(operand);
-    result.op_name = operand;
+    // Turns opp name to uppercase
+    uppercase(opp_name);
+
+    //Assigns opp_name in struct
+    result.op_name = opp_name;
 
     //look for registers
-    char* inst_registers;
-    strcat(inst_registers, operand + 1);
+    char* inst_args;
+    strcat(inst_args, opp_name + 1);
     
     // char* reg1, reg2, reg3, reg4;
 
-    char* token = strtok(inst_registers, ",");
+    char* token = strtok(inst_args, ",");
     size_t arg;
-    for (arg = 1; token != NULL; arg++)
+    for (arg = 0; token != NULL; arg++)
     {
         // parse the token
         // determine the type
@@ -66,24 +74,31 @@ uint32_t parse_assembly(char *line, char **error)
         }
         else if (strchr(token,'#'))
         {
-            result.types[1] = IMMEDIATE;
-            uint32_t new_val = convert_to_machine_code(result,**error);
+            result.types[arg] = IMMEDIATE;
+            // Set result.vals[arg] to the actual number after the #
+            //remove spaces and # symbols from string
+            //then parse the token to int 
+            remove_pound(token);
+            remove_space(token);
+            result.vals[arg] = atoi(token);
         }
         else if (strchr(token, '$'))
         {
-            result.types[0] = REGISTER;
-            uint32_t new_val = convert_to_machine_code(result,**error);
-            
+            result.types[arg] = REGISTER;
+            // Set result.vals[arg] to the register internal number for the register after the $
+            remove_space(token);
+            result.vals[arg] = registers[arg];  
         }
-        else if (strchr(token, ' '))
+        else if (token == '\0')
         {
-            result.types[3] = NONE;
+            result.types[arg] = NONE;
             result.vals[0,4] = UNDEFINED;
         }
         else
         {
-            result.types[2] = TARGET;
-            uint32_t new_val = convert_to_machine_code(result,**error);
+            result.types[arg] = TARGET;
+            // Set result.vals[arg] to UNDEFINED
+            result.vals[arg] = UNDEFINED; 
         }
 
         // convert to val
@@ -95,7 +110,18 @@ uint32_t parse_assembly(char *line, char **error)
 
     for (;arg < 4; arg++) {
         // add none to remaining fields
+        result.types[arg] = NONE;
+        result.vals[arg] = UNDEFINED;
     }
+
+    // Call convert_to_machine_code here
+    uint32_t new_val = convert_to_machine_code(result,**error);
+    
+
+    free(opp_name);
+    opp_name = NULL;
+
+    return new_val;
 }
 
 static void uppercase(char *operand)
@@ -106,6 +132,36 @@ static void uppercase(char *operand)
         operand[i] = toupper((unsigned char) operand[i]);
     }
 }
+
+static void remove_pound(char* str)
+{
+    int count = 0;
+
+    for (int i = 0; i < sizeof(str) / sizeof(str[0]); i++)
+    {
+        if (str[i] == "#")
+        {
+            str[count++] = str[i];
+        }
+    }
+    str[count] = '\0';
+}
+
+static void remove_space(char* str)
+{
+    int count = 0;
+
+    for (int i = 0; i < sizeof(str) / sizeof(str[0]); i++)
+    {
+        if (str[i] == " ")
+        {
+            str[count++] = str[i];
+        }
+    }
+    str[count] = '\0';
+}
+
+
 
 static uint32_t reg_lookup(char *str)
 {
