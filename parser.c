@@ -57,9 +57,34 @@ uint32_t parse_assembly(char *line, char **error)
     for (arg = 1; token != NULL; arg++)
     {
         // parse the token
-
         // determine the type
         // add type to result
+        if (reg_lookup(token) == NULL)
+        {
+            *error = "Register not found";
+            return UNDEFINED;
+        }
+        else if (strchr(token,'#'))
+        {
+            result.types[1] = IMMEDIATE;
+            uint32_t new_val = convert_to_machine_code(result,**error);
+        }
+        else if (strchr(token, '$'))
+        {
+            result.types[0] = REGISTER;
+            uint32_t new_val = convert_to_machine_code(result,**error);
+            
+        }
+        else if (strchr(token, ' '))
+        {
+            result.types[3] = NONE;
+            result.vals[0,4] = UNDEFINED;
+        }
+        else
+        {
+            result.types[2] = TARGET;
+            uint32_t new_val = convert_to_machine_code(result,**error);
+        }
 
         // convert to val
         //val is undefined whrn corresponding type is NONE
@@ -76,7 +101,7 @@ uint32_t parse_assembly(char *line, char **error)
 static void uppercase(char *operand)
 {
     size_t length = strlen(operand);
-    for(size_t i = 0; i < length; i++)
+    for (size_t i = 0; i < length; i++)
     {
         operand[i] = toupper((unsigned char) operand[i]);
     }
@@ -86,11 +111,12 @@ static uint32_t reg_lookup(char *str)
 {
     for (uint32_t i = 0; i < sizeof(registers) / sizeof(registers[0]); i++)
     {
-        if(strcmp(registers[i],str) == 0)
+        if (strcmp(registers[i],str) == 0)
         {
             return i;
         }
     } 
+    return NULL;
 }
 
 
