@@ -7,6 +7,9 @@
 # Bin directory
 bin/
 
+# VSCode directory
+.vscode
+
 # Prerequisites
 *.d
 
