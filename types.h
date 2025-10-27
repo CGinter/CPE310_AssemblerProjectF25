@@ -1,9 +1,11 @@
 /**
  * @file types.h
  * @brief Struct and enum declarations.
- * @author Chase Sprigle
+ * @author Chase Sprigle, Caden Ginter
  * @date 10/23/2025
  */
+
+// Chase Sprigle Start
 
 // The types of arguments in assembly.
 enum assm_parse_result_type {
@@ -52,3 +54,21 @@ struct instruction_definition {
 	char *funct_code;
 	enum instruction_part parts[4];
 };
+// Chase Sprigle End
+
+// Caden Ginter Start
+/**
+ * @brief Enum for the state of the interactive assembler mode
+ */
+enum InteractiveState {
+    ROOT,
+
+    ASM_TO_MACH,
+
+    MACH_TO_ASM,
+    HEX_TO_ASM,
+    BIN_TO_ASM,
+
+    INACTIVE
+};
+// Caden Ginter End
