@@ -23,8 +23,8 @@ uint32_t bin_to_num(char *binary)
 }
 // Chase Sprigle end
 // Caden Ginter start
-const uint32_t ARG_AUTO 	= 0b0001;
-const uint32_t ARG_REVERSE	= 0b0010;
+const uint32_t ARG_AUTO 	= 1;
+const uint32_t ARG_REVERSE	= 2;
 
 const uint32_t LINE_BUFF_SIZE = 4096;
 
