@@ -32,11 +32,15 @@ int main(int argc, char *argv[])
 		char line[LINE_BUFF_SIZE];
 		get_next_input(line, &int_state, flags, in_filename, &in_file);
 		// printf("%s\n", line);
+		char* error;
+		char* end;
+		struct assm_parse_result parse_result;
+		uint32_t inst_in;
+		char decompile_result[LINE_BUFF_SIZE];
 		switch (int_state) {
 			case ASM_TO_MACH:
-				// Call conversion from assembly to binary, placeholder value for now
-				// uint32_t result = 0b10101010101010101100110011110000;
-				uint32_t result = 0b00000000000000000000000000001000;
+				// Call conversion from assembly to binary
+				uint32_t result = parse_assembly(line, &error);
 				// Print the result in binary and hexadecimal
 				printf("Hex: 0x%08X Binary:", result);
 				for (int i = 0; i < 32; i++) {
@@ -49,20 +53,19 @@ int main(int argc, char *argv[])
 				break;
 			case HEX_TO_ASM:
 				// First convert string hexadecimal to string binary
-				char* end;
-				uint32_t hex_in = strtol(line, &end, 16);
-				char bin_in[33];
-				for (int i = 0; i < 32; i++) {
-					bin_in[i] = (hex_in / 0b010000000000000000000000000000000) ? '1' : '0';
-					hex_in *= 2;
-				}
-				bin_in[32] = '\0';
+				inst_in = strtol(line, &end, 16);
 				// Call binary to assembly conversion and print out, print input in binary for now
-				printf("%s\n\n", bin_in);
+				parse_result = convert_to_assembly(inst_in, &error);
+				generate_assembly(decompile_result, LINE_BUFF_SIZE, parse_result, &error);
+				printf("%s\n\n", decompile_result);
 				break;
 			case BIN_TO_ASM:
-				// Call binary to assembly conversion and print result, print input in binary for now
-				printf("%s\n\n", line);
+				// First convert string hexadecimal to string binary
+				inst_in = strtol(line, &end, 2);
+				// Call binary to assembly conversion and print out, print input in binary for now
+				parse_result = convert_to_assembly(inst_in, &error);
+				generate_assembly(decompile_result, LINE_BUFF_SIZE, parse_result, &error);
+				printf("%s\n\n", decompile_result);
 				break;
 		}
 	}
