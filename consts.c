@@ -17,6 +17,7 @@ const uint32_t MAX_26_BIT = 67108863;
 //Rachel Ogbonna Start
 const char* registers[] = {
     "$zero",
+    "$at",
     "$v0",
     "$v1",
     "$a0",
@@ -31,6 +32,7 @@ const char* registers[] = {
     "$t5",
     "$t6",
     "$t7",
+    "$s0",
     "$s1",
     "$s2",
     "$s3",
@@ -40,7 +42,8 @@ const char* registers[] = {
     "$s7",
     "$t8",
     "$t9",
-    "$t8",
+    "$k0",
+    "$k1",
     "$gp",
     "$sp",
     "$fp",
