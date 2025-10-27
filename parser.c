@@ -20,7 +20,21 @@ static void uppercase(char *operand);
  * @brief Takes the string compares it with each register type to find a match
  * @param operand String to lookup
  */
-static uint32_t reg_lookup(char *str);
+static uint32_t reg_lookup(char *str, char** error);
+
+/**
+ * @brief Removes whitespace from a string
+ * @param str String to remove whitespace from
+ */
+static void remove_space(char* str);
+
+/**
+ * @brief Removes pound symbol from string
+ * @param str String to remove pound symbol from
+ */
+static void remove_pound(char* str);
+
+
 
 uint32_t parse_assembly(char *line, char **error)
 {
@@ -38,7 +52,7 @@ uint32_t parse_assembly(char *line, char **error)
     //look for operand, and store into struct capitalized
     if (opp_name == NULL)
     {
-        *error = "Operand not found";
+        *error = "Memory not allocated.";
         return UNDEFINED;
     }
 
@@ -55,50 +69,42 @@ uint32_t parse_assembly(char *line, char **error)
     result.op_name = opp_name;
 
     //look for registers
-    char* inst_args;
-    strcat(inst_args, opp_name + 1);
-    
-    // char* reg1, reg2, reg3, reg4;
+    line += length;
 
-    char* token = strtok(inst_args, ",");
+    char* token = strtok(line, ",");
     size_t arg;
     for (arg = 0; token != NULL; arg++)
     {
-        // parse the token
-        // determine the type
-        // add type to result
-        if (reg_lookup(token) == NULL)
-        {
-            *error = "Register not found";
-            return UNDEFINED;
-        }
-        else if (strchr(token,'#'))
+        //Removes space from token
+        remove_space(token);
+
+        if (token[0] == '#')
         {
             result.types[arg] = IMMEDIATE;
-            // Set result.vals[arg] to the actual number after the #
-            //remove spaces and # symbols from string
-            //then parse the token to int 
             remove_pound(token);
-            remove_space(token);
-            result.vals[arg] = atoi(token);
+            char* end_ptr;
+            result.vals[arg] = strtol(token, &end_ptr, 10);
+
+            if(end_ptr == token || *end_ptr != '\0')
+            {
+                *error = "Improperly formatted immediate.";
+                free(opp_name);
+                opp_name = NULL;
+                return UNDEFINED;
+            }
         }
-        else if (strchr(token, '$'))
+        else if (token[0] == '$')
         {
             result.types[arg] = REGISTER;
             // Set result.vals[arg] to the register internal number for the register after the $
-            remove_space(token);
-            result.vals[arg] = registers[arg];  
-        }
-        else if (token == '\0')
-        {
-            result.types[arg] = NONE;
-            result.vals[0,4] = UNDEFINED;
+            result.vals[arg] = reg_lookup(token, error);  
         }
         else
         {
-            result.types[arg] = TARGET;
-            // Set result.vals[arg] to UNDEFINED
-            result.vals[arg] = UNDEFINED; 
+            *error = "Argument isn't register or immediate (targets not yet supported).";
+            free(opp_name);
+            opp_name = NULL;
+            return UNDEFINED; 
         }
 
         // convert to val
@@ -115,9 +121,8 @@ uint32_t parse_assembly(char *line, char **error)
     }
 
     // Call convert_to_machine_code here
-    uint32_t new_val = convert_to_machine_code(result,**error);
+    uint32_t new_val = convert_to_machine_code(result, error);
     
-
     free(opp_name);
     opp_name = NULL;
 
@@ -137,9 +142,9 @@ static void remove_pound(char* str)
 {
     int count = 0;
 
-    for (int i = 0; i < sizeof(str) / sizeof(str[0]); i++)
+    for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == "#")
+        if (str[i] == '#')
         {
             str[count++] = str[i];
         }
@@ -151,9 +156,9 @@ static void remove_space(char* str)
 {
     int count = 0;
 
-    for (int i = 0; i < sizeof(str) / sizeof(str[0]); i++)
+    for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == " ")
+        if (str[i] == ' ')
         {
             str[count++] = str[i];
         }
@@ -163,16 +168,18 @@ static void remove_space(char* str)
 
 
 
-static uint32_t reg_lookup(char *str)
+static uint32_t reg_lookup(char *str, char** error)
 {
-    for (uint32_t i = 0; i < sizeof(registers) / sizeof(registers[0]); i++)
+    for (uint32_t i = 0; i < strlen(str); i++)
     {
         if (strcmp(registers[i],str) == 0)
         {
             return i;
         }
-    } 
-    return NULL;
+    }
+
+    *error = "Register not found.";
+    return UNDEFINED;
 }
 
 
