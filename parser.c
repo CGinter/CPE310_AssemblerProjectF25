@@ -170,7 +170,7 @@ static void remove_space(char* str)
 
 static uint32_t reg_lookup(char *str, char** error)
 {
-    for (uint32_t i = 0; i < strlen(str); i++)
+    for (uint32_t i = 0; i < sizeof(registers) / sizeof(char *); i++)
     {
         if (strcmp(registers[i],str) == 0)
         {
