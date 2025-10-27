@@ -87,21 +87,21 @@ const struct instruction_definition instruction_definitions[] = {
 		R_TYPE,
 		"000000",
 		"011011",
-		{ EMPTY, RS, RT, EMPTY }
+		{ RS, RT, EMPTY, EMPTY }
 	},
 	{
 		"JALR",
 		R_TYPE,
 		"000000",
 		"001001",
-		{ RD, RS, EMPTY, EMPTY }
+		{ RS, EMPTY, EMPTY, EMPTY }
 	},
 	{
 		"JR",
 		R_TYPE,
 		"000000",
 		"001000",
-		{ EMPTY, RS, EMPTY, EMPTY }
+		{ RS, EMPTY, EMPTY, EMPTY }
 	},
 	{
 		"MFHI",
@@ -122,28 +122,28 @@ const struct instruction_definition instruction_definitions[] = {
 		R_TYPE,
 		"000000",
 		"010001",
-		{ EMPTY, RS, EMPTY, EMPTY }
+		{ RS, EMPTY, EMPTY, EMPTY }
 	},
 	{
 		"MTLO",
 		R_TYPE,
 		"000000",
 		"010011",
-		{ EMPTY, RS, EMPTY, EMPTY }
+		{ RS, EMPTY, EMPTY, EMPTY }
 	},
 	{
 		"MULT",
 		R_TYPE,
 		"000000",
 		"011000",
-		{ EMPTY, RS, RT, EMPTY}
+		{ RS, RT, EMPTY, EMPTY}
 	},
 	{
 		"MULTU",
 		R_TYPE,
 		"000000",
 		"011001",
-		{ EMPTY, RS, RT, EMPTY }
+		{ RS, RT, EMPTY, EMPTY }
 	},
 	{
 		"NOR",
@@ -164,14 +164,14 @@ const struct instruction_definition instruction_definitions[] = {
 		R_TYPE,
 		"000000",
 		"000000",
-		{ RD, EMPTY, RT, SA }
+		{ RD, RT, SA, EMPTY }
 	},
 	{
 		"SLLV",
 		R_TYPE,
 		"000000",
 		"000100",
-		{ RD, EMPTY, RT, RS }
+		{ RD, RT, RS, EMPTY }
 	},
 	{
 		"SLT",
@@ -192,28 +192,28 @@ const struct instruction_definition instruction_definitions[] = {
 		R_TYPE,
 		"000000",
 		"000011",
-		{ RD, EMPTY, RT, SA }
+		{ RD, RT, SA, EMPTY }
 	},
 	{
 		"SRAV",
 		R_TYPE,
 		"000000",
 		"000111",
-		{ RD, EMPTY, RT, RS }
+		{ RD, RT, RS, EMPTY }
 	},
 	{
 		"SRL",
 		R_TYPE,
 		"000000",
 		"000010",
-		{ RD, EMPTY, RT, SA }
+		{ RD, RT, SA, EMPTY }
 	},
 	{
 		"SRLV",
 		R_TYPE,
 		"000000",
 		"000110",
-		{RD, EMPTY, RT, RS }
+		{RD, RT, RS, EMPTY }
 	},
 	{
 		"SUB",
@@ -270,63 +270,63 @@ const struct instruction_definition instruction_definitions[] = {
 		I_TYPE,
 		"000100",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, RT, IMM, EMPTY }
 	},
 	{
 		"BGEZ",
 		I_TYPE,
 		"000001",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, IMM, EMPTY, EMPTY }
 	},
 	{
 		"BGTZ",
 		I_TYPE,
 		"000111",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, IMM, EMPTY, EMPTY }
 	},
 	{
 		"BLEZ",
 		I_TYPE,
 		"000110",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, IMM, EMPTY, EMPTY }
 	},
 	{
 		"BLTZ",
 		I_TYPE,
 		"000001",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, IMM, EMPTY, EMPTY }
 	},
 	{
 		"BNE",
 		I_TYPE,
 		"000101",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RS, RT, IMM, EMPTY }
 	},
 	{
 		"LB",
 		I_TYPE,
 		"100000",
 		NULL,
-		{ RT, EMPTY, IMM, EMPTY }
+		{ RT, IMM, RS, EMPTY }
 	},
 	{
 		"LBU",
 		I_TYPE,
 		"100100",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RT, IMM, RS, EMPTY }
 	},
 	{
 		"LH",
 		I_TYPE,
 		"100001",
 		NULL,
-		{ RT, RS, IMM, EMPTY }
+		{ RT, IMM, RS, EMPTY }
 	},
 	{
 		"LHU",
@@ -340,14 +340,14 @@ const struct instruction_definition instruction_definitions[] = {
 		I_TYPE,
 		"001111",
 		NULL,
-		{ RT, EMPTY, IMM, EMPTY }
+		{ RT, IMM, EMPTY, EMPTY }
 	},
 	{
 		"LW",
 		I_TYPE,
 		"100011",
 		NULL,
-		{ RT, EMPTY, IMM, EMPTY}
+		{ RT, IMM, RS, EMPTY}
 	},
 	{
 		"LWCL",
@@ -368,7 +368,7 @@ const struct instruction_definition instruction_definitions[] = {
 		I_TYPE,
 		"101000",
 		NULL,
-		{ RT, EMPTY, IMM, EMPTY }
+		{ RT, IMM, RS, EMPTY }
 	},
 	{
 		"SLTI",
@@ -389,14 +389,14 @@ const struct instruction_definition instruction_definitions[] = {
 		I_TYPE,
 		"101001",
 		NULL,
-		{ RT, EMPTY, IMM, EMPTY}
+		{ RT, IMM, RS, EMPTY}
 	},
 	{
 		"SW",
 		I_TYPE,
 		"101011",
 		NULL,
-		{ RT, RS, IMM, EMPTY}
+		{ RT, IMM, RS, EMPTY}
 	},
 	{
 		"SWCL",
