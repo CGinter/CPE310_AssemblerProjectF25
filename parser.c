@@ -6,9 +6,6 @@
  */
 
 #include "include.h"
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 
 /**
  * @brief Takes the string and turns each character to uppercase
@@ -97,7 +94,12 @@ uint32_t parse_assembly(char *line, char **error)
         {
             result.types[arg] = REGISTER;
             // Set result.vals[arg] to the register internal number for the register after the $
-            result.vals[arg] = reg_lookup(token, error);  
+            result.vals[arg] = reg_lookup(token, error);
+            if (*error != NULL) {
+                free(opp_name);
+                opp_name = NULL;
+                return UNDEFINED;
+            }
         }
         else
         {
@@ -144,7 +146,7 @@ static void remove_pound(char* str)
 
     for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == '#')
+        if (str[i] != '#')
         {
             str[count++] = str[i];
         }
@@ -158,7 +160,7 @@ static void remove_space(char* str)
 
     for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == ' ')
+        if (str[i] != ' ')
         {
             str[count++] = str[i];
         }
@@ -166,11 +168,9 @@ static void remove_space(char* str)
     str[count] = '\0';
 }
 
-
-
 static uint32_t reg_lookup(char *str, char** error)
 {
-    for (uint32_t i = 0; i < strlen(str); i++)
+    for (uint32_t i = 0; i < sizeof(registers) / sizeof(char *); i++)
     {
         if (strcmp(registers[i],str) == 0)
         {
@@ -181,9 +181,3 @@ static uint32_t reg_lookup(char *str, char** error)
     *error = "Register not found.";
     return UNDEFINED;
 }
-
-
-
-
-
-
