@@ -11,7 +11,7 @@ void generate_assembly(char *buf, size_t size, struct assm_parse_result parsed, 
 {
 	*error = NULL;
 
-	char args[4][7]; // 7 is length of longest 16 bit number plus one for terminator
+	char args[4][8]; // 7 is length of longest 16 bit number plus two
 	size_t arg_count;
 
 	for (arg_count = 0; arg_count < 4 && parsed.types[arg_count] != NONE; arg_count++) {
@@ -24,7 +24,7 @@ void generate_assembly(char *buf, size_t size, struct assm_parse_result parsed, 
 				uint16_t u;
 				int16_t i;
 			} magic = { (uint16_t) parsed.vals[arg_count] };
-			sprintf(args[arg_count], "%d", magic.i);
+			sprintf(args[arg_count], "#%d", magic.i);
 			break;
 		case TARGET:
 			*error = "Generating assembly with targets is unsupported.";
