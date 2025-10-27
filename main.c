@@ -1,9 +1,10 @@
 /**
  * @file main.c
  * @brief
- * @author Chase Sprigle
+ * @author Caden Ginter
  * @date 10/23/2025
  */
+
 #include "include.h"
 
 int main(int argc, char *argv[])
@@ -91,18 +92,4 @@ int main(int argc, char *argv[])
 		}
 		
 	}
-	// if (result & ARG_AUTO)
-	// 	printf("Auto mode\n");
-	// else
-	// 	printf("Interactive mode\n");
-
-	// if (result & ARG_REVERSE)
-	// 	printf("Machine to Assembly\n");
-	// else
-	// 	printf("Assembly to Machine\n");
-
-	// if (in_filename != NULL)
-	// 	printf("Input:\t%s\n", in_filename);
-	// if (out_filename != NULL)
-	// 	printf("Output:\t%s\n", out_filename);
 }
