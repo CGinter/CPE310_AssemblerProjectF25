@@ -94,7 +94,12 @@ uint32_t parse_assembly(char *line, char **error)
         {
             result.types[arg] = REGISTER;
             // Set result.vals[arg] to the register internal number for the register after the $
-            result.vals[arg] = reg_lookup(token, error);  
+            result.vals[arg] = reg_lookup(token, error);
+            if (*error != NULL) {
+                free(opp_name);
+                opp_name = NULL;
+                return UNDEFINED;
+            }
         }
         else
         {
