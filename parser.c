@@ -6,9 +6,6 @@
  */
 
 #include "include.h"
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 
 /**
  * @brief Takes the string and turns each character to uppercase
@@ -144,7 +141,7 @@ static void remove_pound(char* str)
 
     for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == '#')
+        if (str[i] != '#')
         {
             str[count++] = str[i];
         }
@@ -158,15 +155,13 @@ static void remove_space(char* str)
 
     for (int i = 0; i < strlen(str); i++)
     {
-        if (str[i] == ' ')
+        if (str[i] != ' ')
         {
             str[count++] = str[i];
         }
     }
     str[count] = '\0';
 }
-
-
 
 static uint32_t reg_lookup(char *str, char** error)
 {
@@ -181,9 +176,3 @@ static uint32_t reg_lookup(char *str, char** error)
     *error = "Register not found.";
     return UNDEFINED;
 }
-
-
-
-
-
-
