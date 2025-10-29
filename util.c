@@ -61,19 +61,46 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 			*file = fopen(in_filename, "r");
 		// Read line from file, checking for and cleaning up newlines
 		str = fgets(line, LINE_BUFF_SIZE, *file);
-		if (strchr(line, '\n') == NULL || str == NULL) {
+		if (str == NULL && feof(*file)) {
+			if (*file != NULL)
+				fclose(*file);
+			exit(0);
+		}
+		else if (str == NULL && ferror(*file)) {
 			printf("Invalid line");
+			if (*file != NULL)
+				fclose(*file);
 			exit(1);
 		}
+		else if (*line == '\n') {
+			get_next_input(line, int_state, flags, in_filename, file);
+		}
 		line[strcspn(line, "\n")] = 0;
-
 		return;
 	}
 	// Input from stdin
 	else if (auto_mode && in_filename == NULL) {
+		str = fgets(line, LINE_BUFF_SIZE, stdin);
+		if (str == NULL && feof(stdin)) {
+			if (stdin != NULL)
+				fclose(stdin);
+			exit(0);
+		}
+		else if (str == NULL && ferror(stdin)) {
+			printf("Invalid line");
+			if (stdin != NULL)
+				fclose(stdin);
+			exit(1);
+		}
+		else if (*line == '\n') {
+			get_next_input(line, int_state, flags, in_filename, file);
+		}
+
 		// Read line from stdin, checking for and cleaning up newlines
 		if (strchr(line, '\n') == NULL || str == NULL) {
 			printf("Invalid line");
+			if (*file != NULL)
+				fclose(*file);
 			exit(1);
 		}
 		line[strcspn(line, "\n")] = 0;
@@ -104,6 +131,8 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 						*int_state = MACH_TO_ASM;
 					}
 					else if (!strcmp(choice, "3")) {
+						if (*file != NULL)
+							fclose(*file);
 						exit(0);
 					}
 					else {

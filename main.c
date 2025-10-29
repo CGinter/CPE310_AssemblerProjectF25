@@ -32,16 +32,16 @@ int main(int argc, char *argv[])
 	while (1) {
 		char line[LINE_BUFF_SIZE];
 		get_next_input(line, &int_state, flags, in_filename, &in_file);
-		// printf("%s\n", line);
 		char* error = NULL;
 		char* end;
 		struct assm_parse_result parse_result;
 		uint32_t inst_in;
+		uint32_t result;
 		char decompile_result[LINE_BUFF_SIZE];
 		switch (int_state) {
 			case ASM_TO_MACH:
 				// Call conversion from assembly to binary
-				uint32_t result = parse_assembly(line, &error);
+				result = parse_assembly(line, &error);
 				// Check for errors in parsing and assembling
 				if (error != NULL) {
 					printf("%s\n", error);
@@ -84,11 +84,45 @@ int main(int argc, char *argv[])
 				}
 				generate_assembly(decompile_result, LINE_BUFF_SIZE, parse_result, &error);
 				if (error != NULL) {
-					printf("%s\n", *error);
+					printf("%s\n", error);
 					continue;
 				}
 				printf("%s\n\n", decompile_result);
 				break;
+			case INACTIVE:
+				if (flags & ARG_REVERSE) {
+					// First convert string hexadecimal to string binary
+					inst_in = strtol(line, &end, 2);
+					// Call conversion from binary to assembly
+					parse_result = convert_to_assembly(inst_in, &error);
+					if (error != NULL) {
+						printf("%s\n", error);
+						continue;
+					}
+					generate_assembly(decompile_result, LINE_BUFF_SIZE, parse_result, &error);
+					if (error != NULL) {
+						printf("%s\n", error);
+						continue;
+					}
+					printf("%s\n", decompile_result);
+				}
+				else {
+					// Call conversion from assembly to binary
+					result = parse_assembly(line, &error);
+					// Check for errors in parsing and assembling
+					if (error != NULL) {
+						printf("%s\n", error);
+						continue;
+					}
+					// Print the result in binary
+					for (int i = 0; i < 32; i++) {
+						printf("%d", result / 0b010000000000000000000000000000000);
+						result *= 2;
+					}
+					printf("\n");
+				}
+				break;
+
 		}
 		
 	}
