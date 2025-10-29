@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 				break;
 			case HEX_TO_ASM:
 				// First convert string hexadecimal to string binary
-				inst_in = strtol(line, &end, 16);
+				inst_in = strtoul(line, &end, 16);
 				// Call binary to assembly conversion and print out
 				parse_result = convert_to_assembly(inst_in, &error);
 				if (error != NULL) {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 				break;
 			case BIN_TO_ASM:
 				// First get the binary input as uint32_t
-				inst_in = strtol(line, &end, 2);
+				inst_in = strtoul(line, &end, 2);
 				// Call binary to assembly conversion and print out
 				parse_result = convert_to_assembly(inst_in, &error);
 				if (error != NULL) {
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 				break;
 			case DEBUG:
 				// First get the binary input as uint32_t
-				inst_in = strtol(line, &end, 2);
+				inst_in = strtoul(line, &end, 2);
 				// Loop over positions to flip each bit once and convert it
 				for (int i = 31; i >= 0; i--) {
 					uint32_t mask = 1 << i;
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 			case INACTIVE:
 				if (flags & ARG_REVERSE) {
 					// First convert string hexadecimal to string binary
-					inst_in = strtol(line, &end, 2);
+					inst_in = strtoul(line, &end, 2);
 					// Call conversion from binary to assembly
 					parse_result = convert_to_assembly(inst_in, &error);
 					if (error != NULL) {
