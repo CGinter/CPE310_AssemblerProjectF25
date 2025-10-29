@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 				for (int i = 0; i < 32; i++) {
 					if (i % 4 == 0 && i != 0)
 						printf(" ");
-					printf("%d", result / 0b010000000000000000000000000000000);
+					printf("%d", result / (1 << 31));
 					result *= 2;
 				}
 				printf("\n");
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 			case HEX_TO_ASM:
 				// First convert string hexadecimal to string binary
 				inst_in = strtol(line, &end, 16);
-				// Call binary to assembly conversion and print out, print input in binary for now
+				// Call binary to assembly conversion and print out
 				parse_result = convert_to_assembly(inst_in, &error);
 				if (error != NULL) {
 					printf("%s\n", error);
@@ -74,9 +74,9 @@ int main(int argc, char *argv[])
 				printf("%s\n\n", decompile_result);
 				break;
 			case BIN_TO_ASM:
-				// First convert string hexadecimal to string binary
+				// First get the binary input as uint32_t
 				inst_in = strtol(line, &end, 2);
-				// Call binary to assembly conversion and print out, print input in binary for now
+				// Call binary to assembly conversion and print out
 				parse_result = convert_to_assembly(inst_in, &error);
 				if (error != NULL) {
 					printf("%s\n", error);
@@ -89,6 +89,45 @@ int main(int argc, char *argv[])
 				}
 				printf("%s\n\n", decompile_result);
 				break;
+			case DEBUG:
+				// First get the binary input as uint32_t
+				inst_in = strtol(line, &end, 2);
+				// Loop over positions to flip each bit once and convert it
+				for (int i = 31; i >= 0; i--) {
+					uint32_t mask = 1 << i;
+					uint32_t flip_inst = inst_in ^ mask;
+
+					uint32_t temp_inst = flip_inst;
+					
+					// Print the binary out, followed by tab
+					for (int j = 0; j < 32; j++) {
+						if (j % 4 == 0 && j != 0)
+							printf(" ");
+						printf("%d", temp_inst / (1 << 31));
+						temp_inst *= 2;
+					}
+					printf(": \t");
+
+					// Compute and print the assembly result
+					parse_result = convert_to_assembly(flip_inst, &error);
+					if (error != NULL) {
+						printf("%s", error);
+					}
+					else {
+						generate_assembly(decompile_result, LINE_BUFF_SIZE, parse_result, &error);
+						if (error != NULL) {
+							printf("%s", error);
+						}
+						else {
+							printf("%s", decompile_result);
+						}
+					}
+
+					printf("\n");
+				}
+				printf("\n");
+				break;
+
 			case INACTIVE:
 				if (flags & ARG_REVERSE) {
 					// First convert string hexadecimal to string binary
@@ -116,7 +155,7 @@ int main(int argc, char *argv[])
 					}
 					// Print the result in binary
 					for (int i = 0; i < 32; i++) {
-						printf("%d", result / 0b010000000000000000000000000000000);
+						printf("%d", result / (1 << 31));
 						result *= 2;
 					}
 					printf("\n");

@@ -114,7 +114,7 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 			switch (*int_state) {
 				// Root menu
 				case ROOT:
-					printf("\nPlease enter an option:\n\t(1) Assembly to Machine Code\n\t(2) Machine Code to Assembly\n\t(3) Quit\n");
+					printf("\nPlease enter an option:\n\t(1) Assembly to Machine Code\n\t(2) Machine Code to Assembly\n\t(3) Quit\n\t(4) Corrupted Code Inspector\n");
 					printf("\n> ");
 					choice[0] = 0;
 					str = fgets(choice, sizeof(choice), stdin);
@@ -134,6 +134,9 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 						if (*file != NULL)
 							fclose(*file);
 						exit(0);
+					}
+					else if (!strcmp(choice, "4")) {
+						*int_state = DEBUG;
 					}
 					else {
 						printf("Invalid input");
@@ -209,6 +212,19 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 						*int_state = MACH_TO_ASM;
 					}
 					return;
+				case DEBUG:
+					printf("\n Enter Broken Binary:\n> ");
+					str = fgets(line, LINE_BUFF_SIZE, stdin);
+					if (strchr(line, '\n') == NULL || str == NULL) {
+						printf("Invalid input");
+						continue;
+					}
+					line[strcspn(line, "\n")] = 0;
+					if (line[0] == 0) { // If empty, jump back to machine submenu
+						*int_state = ROOT;
+					}
+					return;
+
 			}
 		}
 	}

@@ -69,6 +69,8 @@ enum InteractiveState {
     HEX_TO_ASM,
     BIN_TO_ASM,
 
+	DEBUG,
+
     INACTIVE
 };
 // Caden Ginter End
