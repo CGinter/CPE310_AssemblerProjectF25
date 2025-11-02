@@ -6,8 +6,9 @@
  */
 
 // Chase Sprigle Start
-
-// The types of arguments in assembly.
+/**
+ * @brief The types of arguments in assembly.
+ */
 enum assm_parse_result_type {
 	REGISTER,
 	IMMEDIATE,
@@ -15,24 +16,29 @@ enum assm_parse_result_type {
 	NONE
 };
 
-// A structure for holding an assembly instruction. Note: op_name is expected to be in all
-// caps. The type is expected to be NONE when there are not enough arguments to fill the
-// array. The number in vals is undefined when the corresponding type is NONE.
-//Important
+/** 
+ * @brief A structure for holding an assembly instruction. Note: op_name is expected to be in all caps. 
+ * The type is expected to be NONE when there are not enough arguments to fill the array.
+ * The number in vals is undefined when the corresponding type is NONE.
+ */
 struct assm_parse_result {
 	char *op_name;
 	enum assm_parse_result_type types[4];
 	uint32_t vals[4];
 };
 
-// The types of instructions.
+/**
+ * @brief The types of instructions.
+ */
 enum instruction_type {
 	R_TYPE,
 	I_TYPE,
 	J_TYPE
 };
 
-// The parts of a machine instruction.
+/**
+ * @brief The parts of a machine instruction.
+ */
 enum instruction_part {
 	RD,
 	RS,
@@ -43,10 +49,12 @@ enum instruction_part {
 	EMPTY
 };
 
-// A structure to hold the defintion of an instruction. Note: op_name is expected to be all
-// caps. funct_code should be NULL when type isn't R_TYPE. The parts represent the mapping of
-// arguments to their function type. The remaining values in parts should be EMPTY for
-// instructions with less than four operands.
+/**
+ * @brief A structure to hold the defintion of an instruction. Note: op_name is expected to be all caps. 
+ * funct_code should be NULL when type isn't R_TYPE. 
+ * The parts represent the mapping of arguments to their function type. 
+ * The remaining values in parts should be EMPTY for instructions with less than four operands.
+ */
 struct instruction_definition {
 	char *op_name;
 	enum instruction_type type;
@@ -55,7 +63,6 @@ struct instruction_definition {
 	enum instruction_part parts[4];
 };
 // Chase Sprigle End
-
 // Caden Ginter Start
 /**
  * @brief Enum for the state of the interactive assembler mode

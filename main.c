@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief
+ * @brief Used to scan user input and run the assembler/disassembler tool. 
  * @author Caden Ginter
  * @date 10/23/2025
  */
@@ -161,8 +161,6 @@ int main(int argc, char *argv[])
 					printf("\n");
 				}
 				break;
-
 		}
-		
 	}
 }

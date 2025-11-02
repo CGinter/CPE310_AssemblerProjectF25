@@ -1,6 +1,6 @@
 /**
  * @file parser.c
- * @brief
+ * @brief Parses user input of assembly and determines what kind of instruction it is to be converted into.  
  * @author Rachel Ogbonna
  * @date 10/26/2025
  */
@@ -30,8 +30,6 @@ static void remove_space(char* str);
  * @param str String to remove pound symbol from
  */
 static void remove_pound(char* str);
-
-
 
 uint32_t parse_assembly(char *line, char **error)
 {
