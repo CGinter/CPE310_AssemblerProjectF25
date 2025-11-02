@@ -1,5 +1,5 @@
 /**
- * @file gen_assm.h
+ * @file gen_assm.c
  * @brief Code to generate assembly from a parse result.
  * @author Chase Sprigle
  * @date 10/23/2025

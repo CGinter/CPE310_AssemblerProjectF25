@@ -233,5 +233,4 @@ void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags
 		return;
 	}
 }
-
 // Caden Ginter end
