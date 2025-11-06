@@ -19,11 +19,6 @@ extern const uint32_t MAX_16_BIT;
 extern const uint32_t MAX_26_BIT;
 
 /**
- * @brief Array that holds each register.
- */
-const char* registers[];
-
-/**
  *@brief The definitions of the op codes, funct codes, instruction types, and the expected arguments for an instruction.
  */
 extern const struct instruction_definition instruction_definitions[53];
