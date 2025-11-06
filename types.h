@@ -62,22 +62,33 @@ struct instruction_definition {
 	char *funct_code;
 	enum instruction_part parts[4];
 };
+
+
+/**
+ * @brief A union for changing the type of a uint16_t to int16_t or vice versa
+ * without altering the bits. Useful for marshalling within project.
+ */
+union signedness_switch_trick {
+	uint16_t u;
+	int16_t i;
+};
+
 // Chase Sprigle End
 // Caden Ginter Start
 /**
  * @brief Enum for the state of the interactive assembler mode
  */
 enum InteractiveState {
-    ROOT,
+	ROOT,
 
-    ASM_TO_MACH,
+	ASM_TO_MACH,
 
-    MACH_TO_ASM,
-    HEX_TO_ASM,
-    BIN_TO_ASM,
+	MACH_TO_ASM,
+	HEX_TO_ASM,
+	BIN_TO_ASM,
 
 	DEBUG,
 
-    INACTIVE
+	INACTIVE
 };
 // Caden Ginter End

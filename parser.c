@@ -79,11 +79,9 @@ uint32_t parse_assembly(char *line, char **error)
             remove_pound(token);
             char* end_ptr;
             
-            union {
-                uint16_t u;
-                int16_t i;
-            } magic = { (int16_t) strtol(token, &end_ptr, 10) };
-            result.vals[arg] = magic.u;
+	    union signedness_switch_trick signedness;
+            signedness.i = (int16_t) strtol(token, &end_ptr, 10);
+            result.vals[arg] = signedness.u;
 
             if(end_ptr == token || *end_ptr != '\0')
             {
