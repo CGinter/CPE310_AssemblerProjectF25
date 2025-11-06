@@ -13,6 +13,7 @@ void generate_assembly(char *buf, size_t size, struct assm_parse_result parsed, 
 
 	char args[4][8]; // 7 is length of longest 16 bit number plus two
 	size_t arg_count;
+	union signedness_switch_trick signedness;
 
 	for (arg_count = 0; arg_count < 4 && parsed.types[arg_count] != NONE; arg_count++) {
 		switch (parsed.types[arg_count]) {
@@ -20,15 +21,15 @@ void generate_assembly(char *buf, size_t size, struct assm_parse_result parsed, 
 			strcpy(args[arg_count], registers[parsed.vals[arg_count]]);
 			break;
 		case IMMEDIATE:
-			union {
-				uint16_t u;
-				int16_t i;
-			} magic = { (uint16_t) parsed.vals[arg_count] };
-			sprintf(args[arg_count], "#%d", magic.i);
+			signedness.u = (uint16_t) parsed.vals[arg_count];
+			sprintf(args[arg_count], "#%d", signedness.i);
 			break;
 		case TARGET:
 			*error = "Generating assembly with targets is unsupported.";
 			return;
+		case NONE:
+			// Do nothing
+			break;
 		}
 	}
 
