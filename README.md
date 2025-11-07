@@ -47,6 +47,10 @@ These files contain the logic that uses the table to convert between our interna
  - Run `.\compile.ps1` in a Powershell terminal (standard CMD not supported)
  - The executable is `.\bin\interpreter.exe`
 
+### Other/Troubleshooting
+
+If you are running something else or experiencing issues, you can compile manually using gcc or clang c compilers (gcc is preferred). An example: `gcc *.c -o .\bin\interpreter.exe` will compile the program to the executable `.\bin\interpreter.exe`.
+
 ## Running and Usage
 
 In each command replace `{executable}` with your actual executable path (likely `.\bin\interpreter.exe` or `./bin/interpreter`).
