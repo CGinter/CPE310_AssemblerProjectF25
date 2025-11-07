@@ -48,8 +48,8 @@ uint32_t command_line_args(int argc, char *argv[], char** in_filename, char** ou
 void get_next_input(char* line, enum InteractiveState* int_state, uint32_t flags, char* in_filename, FILE** file)
 {
 	// Pluck out flags
-	uint32_t auto_mode = flags & ARG_AUTO > 0;
-	uint32_t reverse_mode = flags & ARG_REVERSE > 0;
+	uint32_t auto_mode = (flags & ARG_AUTO) > 0;
+	uint32_t reverse_mode = (flags & ARG_REVERSE) > 0;
 	
 	// Empty box for file read status
 	char* str;
